@@ -18,4 +18,3 @@ class Identity < ActiveRecord::Base
     identity
   end
 end
-end
