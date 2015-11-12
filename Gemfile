@@ -27,13 +27,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise'
 gem 'omniauth', '~> 1.2.2'
 gem 'omniauth-google-oauth2'
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'omniauth-facebook'
 
-# Use Unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
+#keep track of environmental variables
+gem 'figaro'
 # gem 'capistrano-rails', group: :development
 
 group :production do
