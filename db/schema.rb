@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151112213109) do
+ActiveRecord::Schema.define(version: 20151114081647) do
 
   create_table "identities", force: :cascade do |t|
     t.integer  "user_id"
@@ -30,6 +30,52 @@ ActiveRecord::Schema.define(version: 20151112213109) do
   end
 
   add_index "identities", ["user_id"], name: "index_identities_on_user_id"
+
+  create_table "links", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "subject_id" 
+    t.text     "text"
+    t.text     "descr"
+    t.string   "image"
+    t.integer  "rating"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "moderators", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "moderators", ["email"], name: "index_moderators_on_email", unique: true
+  add_index "moderators", ["reset_password_token"], name: "index_moderators_on_reset_password_token", unique: true
+
+  create_table "quotes", force: :cascade do |t|
+    t.string   "link_id"
+    t.string   "user_id"
+    t.string   "q"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "topics", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "img"
+    t.string   "title"
+    t.text     "descr"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

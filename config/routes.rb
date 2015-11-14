@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  devise_for :moderators
+  resources :quotes
+  resources :links
+  resources :topics
   get 'welcome/index'
   root 'welcome#index'
   devise_for :users, class_name: 'FormUser',

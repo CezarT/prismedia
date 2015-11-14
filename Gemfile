@@ -31,7 +31,9 @@ gem 'omniauth-facebook'
 
 #keep track of environmental variables
 gem 'figaro'
-# gem 'capistrano-rails', group: :development
+
+#upvote/downvote
+gem 'acts_as_votable'
 
 group :production do
   gem 'unicorn'

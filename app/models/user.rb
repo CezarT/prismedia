@@ -6,6 +6,9 @@ class User < ActiveRecord::Base
 
 
 	has_many :identities
+  has_many :topics
+  has_many :links
+  has_many :quotes
 
 	def facebook
     	identities.where( :provider => "facebook" ).first
