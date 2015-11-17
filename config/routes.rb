@@ -1,10 +1,15 @@
 Rails.application.routes.draw do
+  get 'pages/home'
+
   devise_for :moderators
-  resources :quotes
-  resources :links
-  resources :topics
+  resources :topics do
+    resources :links do
+      resources :quotes
+    end
+  end
+
+  root 'pages#home'
   get 'welcome/index'
-  root 'welcome#index'
   devise_for :users, class_name: 'FormUser',
              :controllers => { omniauth_callbacks: 'omniauth_callbacks', registrations: 'registrations'}
              
