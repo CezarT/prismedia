@@ -30,7 +30,7 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'
 
 #keep track of environmental variables
-gem 'figaro'
+#gem 'figaro'
 
 #upvote/downvote
 gem 'acts_as_votable'
