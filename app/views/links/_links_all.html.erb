@@ -11,7 +11,7 @@
 		</div>
 		<div class="col-md-4">
 			<%= link_to({ controller: "links", action: "edit", id: lnk.id,timeline_id: @timeline.id }, remote: true)  do %>
-			    <button class="btn btn-default btn-sm">Edit</button>
+			    <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#link-form-modal">Edit</button>
 			<% end %>
 			<%= link_to lnk, remote: true, method: :delete,  data: { confirm: 'Are you sure?' } do %>
 				<button class="btn btn-default btn-sm"ton>Delete!</button>
