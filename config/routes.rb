@@ -2,11 +2,7 @@ Rails.application.routes.draw do
   get 'pages/home'
 
   devise_for :moderators
-  resources :topics do
-    resources :links do
-      resources :quotes
-    end
-  end
+  resources :timelines, :links
 
   root 'pages#home'
   devise_for :users, class_name: 'FormUser',
@@ -19,7 +15,7 @@ Rails.application.routes.draw do
   # root 'welcome#index'
 
   # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
+  #   get 'products/:id' => 'actalog#view'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase

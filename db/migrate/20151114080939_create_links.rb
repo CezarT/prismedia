@@ -1,8 +1,8 @@
 class CreateLinks < ActiveRecord::Migration
   def change
     create_table :links do |t|
-      t.integer :user_id
-      t.integer :subject_id
+      t.belongs_to :user
+      t.belongs_to :timeline
       t.text :text
       t.text :descr
       t.string :image

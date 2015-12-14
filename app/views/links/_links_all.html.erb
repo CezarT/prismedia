@@ -1,0 +1,21 @@
+<% @timeline.links.each do |lnk| %>
+	<div class="row">
+		<div class="col-md-6">
+			<%= lnk.text %>
+		</div>
+		<div class="col-md-1">
+			T=<%= lnk.timeline_id%>
+		</div>
+		<div class="col-md-1">
+			U=<%= lnk.user_id%>
+		</div>
+		<div class="col-md-4">
+			<%= link_to({ controller: "links", action: "edit", id: lnk.id,timeline_id: @timeline.id }, remote: true)  do %>
+			    <button class="btn btn-default btn-sm">Edit</button>
+			<% end %>
+			<%= link_to lnk, remote: true, method: :delete,  data: { confirm: 'Are you sure?' } do %>
+				<button class="btn btn-default btn-sm"ton>Delete!</button>
+			<% end %>
+		</div>
+	</div>
+<% end %>

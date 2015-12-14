@@ -1,14 +1,14 @@
 require 'test_helper'
 
-class TopicsControllerTest < ActionController::TestCase
+class TimelinesControllerTest < ActionController::TestCase
   setup do
-    @topic = topics(:one)
+    @timeline = timelines(:one)
   end
 
   test "should get index" do
     get :index
     assert_response :success
-    assert_not_nil assigns(:topics)
+    assert_not_nil assigns(:timelines)
   end
 
   test "should get new" do
@@ -16,34 +16,34 @@ class TopicsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should create topic" do
-    assert_difference('Topic.count') do
-      post :create, topic: { descr: @topic.descr, img: @topic.img, title: @topic.title, user_id: @topic.user_id }
+  test "should create timeline" do
+    assert_difference('Timeline.count') do
+      post :create, timeline: { descr: @timeline.descr, img: @timeline.img, title: @timeline.title, user_id: @timeline.user_id }
     end
 
-    assert_redirected_to topic_path(assigns(:topic))
+    assert_redirected_to timeline_path(assigns(:timeline))
   end
 
-  test "should show topic" do
-    get :show, id: @topic
+  test "should show timeline" do
+    get :show, id: @timeline
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @topic
+    get :edit, id: @timeline
     assert_response :success
   end
 
-  test "should update topic" do
-    patch :update, id: @topic, topic: { descr: @topic.descr, img: @topic.img, title: @topic.title, user_id: @topic.user_id }
-    assert_redirected_to topic_path(assigns(:topic))
+  test "should update timeline" do
+    patch :update, id: @timeline, timeline: { descr: @timeline.descr, img: @timeline.img, title: @timeline.title, user_id: @timeline.user_id }
+    assert_redirected_to timeline_path(assigns(:timeline))
   end
 
-  test "should destroy topic" do
-    assert_difference('Topic.count', -1) do
-      delete :destroy, id: @topic
+  test "should destroy timeline" do
+    assert_difference('Timeline.count', -1) do
+      delete :destroy, id: @timeline
     end
 
-    assert_redirected_to topics_path
+    assert_redirected_to timelines_path
   end
 end

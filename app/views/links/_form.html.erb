@@ -1,41 +1,10 @@
-<%= form_for(@link) do |f| %>
-  <% if @link.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@link.errors.count, "error") %> prohibited this link from being saved:</h2>
-
-      <ul>
-      <% @link.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.number_field :user_id %>
-  </div>
-  <div class="field">
-    <%= f.label :subject_id %><br>
-    <%= f.number_field :subject_id %>
-  </div>
-  <div class="field">
-    <%= f.label :text %><br>
-    <%= f.text_area :text %>
-  </div>
-  <div class="field">
-    <%= f.label :descr %><br>
-    <%= f.text_area :descr %>
-  </div>
-  <div class="field">
-    <%= f.label :image %><br>
-    <%= f.text_field :image %>
-  </div>
-  <div class="field">
-    <%= f.label :rating %><br>
-    <%= f.number_field :rating %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+T = <%=@timeline_id %> <br>
+<%= simple_form_for(@link ,remote: true) do |f| %>
+  <%= f.input  :descr  %>
+  <%= f.input  :text   %>
+  <%= f.hidden_field :timeline_id, :value => @timeline_id %>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <%= f.button :submit, :class => "btn btn-primary" %>
   </div>
 <% end %>
