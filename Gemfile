@@ -33,6 +33,8 @@ gem 'omniauth-facebook'
 
 #upvote/downvote
 gem 'acts_as_votable'
+gem "paperclip", "~> 4.3"
+gem 'remotipart'
 
 group :production do
   gem 'unicorn'

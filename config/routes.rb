@@ -2,7 +2,16 @@ Rails.application.routes.draw do
   get 'pages/home'
 
   devise_for :moderators
-  resources :timelines, :links
+  resources :timelines
+
+  resources :links do
+    member do
+      put "unvote", to: "links#unvote"
+    end
+  end
+
+  put '/links/:id/upvote', to: 'links#upvote', as: 'upvote_link'
+
 
   root 'pages#home'
   devise_for :users, class_name: 'FormUser',

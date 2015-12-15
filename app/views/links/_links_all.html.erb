@@ -1,15 +1,30 @@
 <% @timeline.links.each do |lnk| %>
-	<div class="row">
-		<div class="col-md-6">
-			<%= lnk.text %>
+	<div class="row" id="link-<%= lnk.id %>" >
+		<div class="col-md-1">
+			M=<%= lnk.media_id%>
+		</div>
+		<div class="col-md-7">
+			
+			<%= link_to lnk.title, lnk.lnk %>
 		</div>
 		<div class="col-md-1">
-			T=<%= lnk.timeline_id%>
+			<% if (current_user.voted_for? lnk) %>
+				<%= link_to unvote_link_path(lnk), remote: true, method: :put do %>
+				<button type="button" class="btn btn-sm btn-default">
+				  <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+				  <span><%= lnk.rating.to_i %></span>
+				</button>
+				<% end %>
+			<% else %>
+				<%= link_to upvote_link_path(lnk), remote: true, method: :put do %>
+				<button type="button" class="btn btn-sm btn-default">
+				  <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+				  <span><%= lnk.rating.to_i %></span>
+				</button>
+				<% end %>
+			<% end %>
 		</div>
-		<div class="col-md-1">
-			U=<%= lnk.user_id%>
-		</div>
-		<div class="col-md-4">
+		<div class="col-md-3">
 			<%= link_to({ controller: "links", action: "edit", id: lnk.id,timeline_id: @timeline.id }, remote: true)  do %>
 			    <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#link-form-modal">Edit</button>
 			<% end %>

@@ -27,7 +27,7 @@ class LinksController < ApplicationController
   def update
     @link = Link.find(params[:id])
     @timeline = Timeline.find(@link.timeline_id)
-    @link.update_attributes(link_params)    
+    @link.update_attributes(link_params)
   end
 
   def destroy
@@ -36,9 +36,33 @@ class LinksController < ApplicationController
     @link.destroy
   end
 
+  def upvote
+    @link = Link.find(params[:id])
+    @timeline = Timeline.find(@link.timeline_id)
+    @link.upvote_by current_user
+    @link.rating = @link.get_upvotes.size
+    @link.save
+    respond_to do |format|
+      format.js { render :layout => false }
+      format.html {redirect_to timeline_path(@link.timeline)}
+    end
+  end
+
+  def unvote
+    @link = Link.find(params[:id])
+    @timeline = Timeline.find(@link.timeline_id)
+    @link.unvote_by current_user
+    @link.rating = @link.get_upvotes.size
+    @link.save
+    respond_to do |format|
+      format.js { render :layout => false }
+      format.html {redirect_to timeline_path(@link.timeline)}
+    end
+  end  
+
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def link_params
-      params.require(:link).permit(:user_id, :timeline_id, :text, :descr, :image, :rating)
+      params.require(:link).permit(:user_id, :timeline_id, :media_id, :lnk, :title, :text, :image, :rating)
     end
 end
