@@ -1,4 +1,6 @@
 class Link < ActiveRecord::Base
+  	#before_save :extract_shares
+
 	belongs_to :user
 	belongs_to :timeline
 
@@ -6,4 +8,11 @@ class Link < ActiveRecord::Base
   	validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
   	acts_as_votable
+
+  	def extract_shares
+  		fb_link =  'https://api.facebook.com/method/links.getStats?urls='+ self.lnk + '&format=json'
+  		fb = HTTParty.get(fb_link)
+  		fb_shares =  fb[0]["total_count"]
+	    self.total_shares =  fb_shares
+  	end
 end

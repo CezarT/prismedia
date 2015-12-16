@@ -1,2 +1,2 @@
-$('#links').html("<%= j (render partial: 'links/links_all') %>");
+$('#link-<%= @link.id %>').html("<%= j (render partial: 'links/link_one', locals: {lnk: @link}) %>");
 $('#link-form-modal').modal('hide');

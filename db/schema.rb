@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151215111056) do
+ActiveRecord::Schema.define(version: 20151215155002) do
 
   create_table "identities", force: :cascade do |t|
     t.integer  "user_id"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20151215111056) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.integer  "total_shares"
   end
 
   create_table "moderators", force: :cascade do |t|
