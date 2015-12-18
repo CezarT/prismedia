@@ -1,0 +1,2 @@
+module MediaOutletsHelper
+end

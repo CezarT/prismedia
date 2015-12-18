@@ -1,0 +1,44 @@
+<div>
+	<button id="filter_old">Oldest</button>
+	<button id="filter_new" style="display:none">Newest</button>
+</div>
+<div>
+	<button id="filter_vote">Vote</button>
+	<button id="filter_share">Share</button>
+</div>
+<div>
+	<button id="filter_media">Media</button>
+	<button id="filter_blog">Blog</button>
+	<button id="filter_social">Social</button>
+</div>
+
+<script>
+$(function(){ 
+	var order = "desc";
+
+	$('#filter_old').on('click', function(){
+		order = 'asc';
+		$('#filter_old').hide();
+		$('#filter_new').show();
+		send(order);
+	});
+	$('#filter_new').on('click', function(){
+		order = 'desc';
+		$('#filter_new').hide();
+		$('#filter_old').show();
+		send(order);
+	});
+
+	// console.log( '<%= @timeline.id %>');
+
+	function send(order) {
+    $.ajax({
+      type: 'GET',
+      url: '/links/sort',
+      dataType: 'jsonp',
+      data: { 'ordr' : order,
+    					'timeline_id': <%= @timeline.id %>}
+    });
+  }
+});
+</script>

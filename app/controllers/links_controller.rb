@@ -10,27 +10,29 @@ class LinksController < ApplicationController
 
   def create
     #render json: {result: params[:link][:timeline_id]}, status: 202
-    @links = Link.all
     @link = Link.new(link_params)
     @link.user = current_user
     @link.total_shares = @link.extract_shares
 
     @timeline = Timeline.find(params[:link][:timeline_id])
     @timeline.links << @link
+
+    @links = @timeline.links
   end
 
   def edit
     @timeline_id = params[:timeline_id]
   end
 
-  # PATCH/PUT /links/1
-  # PATCH/PUT /links/1.json
   def update
     @link.total_shares = @link.extract_shares
     @link.update_attributes(link_params)
+
+    @links = @timeline.links
   end
 
   def destroy
+    @links=  @link.timeline.links
     @link.destroy
   end
 
@@ -54,6 +56,11 @@ class LinksController < ApplicationController
     end
   end
 
+  def sort
+    @timeline = Timeline.find(params[:timeline_id])
+    @links = @timeline.links.sort(params[:ordr])
+  end
+
   private
     def set_link
       @link = Link.find(params[:id])
@@ -64,6 +71,6 @@ class LinksController < ApplicationController
     end
 
     def link_params
-      params.require(:link).permit(:user_id, :timeline_id, :media_id, :lnk, :title, :text, :image, :rating, :total_shares)
+      params.require(:link).permit(:user_id, :timeline_id, :media_outlet_id, :lnk, :title, :text, :image, :rating, :share_rating, :total_shares, :date_published)
     end
 end

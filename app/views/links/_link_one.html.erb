@@ -1,11 +1,14 @@
 <div class="col-md-1">
-	M=<%= lnk.media_id%>
+	M=<%= lnk.media_outlet_id%>
 </div>
-<div class="col-md-7">
-	
+<div class="col-md-2">
+	<%= lnk.date_published %>
+</div>
+<div class="col-md-6">
 	<%= link_to lnk.title, lnk.lnk %>
 </div>
 <div class="col-md-1">
+	<%= lnk.total_shares.to_i %>
 	<% if (current_user.voted_for? lnk) %>
 		<%= link_to unvote_link_path(lnk), remote: true, method: :put do %>
 		<button type="button" class="btn btn-sm btn-default">
@@ -21,10 +24,6 @@
 		</button>
 		<% end %>
 	<% end %>
-</div>
-
-<div class="col-md-1">
-	<%= lnk.total_shares.to_i %>
 </div>
 
 <div class="col-md-2">

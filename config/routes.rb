@@ -1,19 +1,21 @@
 Rails.application.routes.draw do
-  get 'pages/home'
-
-  devise_for :moderators
+  
+  resources :media_outlets
   resources :timelines
-
   resources :links do
     member do
-      put "unvote", to: "links#unvote"
+      put "unvote"
+      put "upvote"
+    end
+    collection do
+      get "sort"
     end
   end
 
-  put '/links/:id/upvote', to: 'links#upvote', as: 'upvote_link'
-
-
+  get 'pages/home'
   root 'pages#home'
+
+  devise_for :moderators
   devise_for :users, class_name: 'FormUser',
              :controllers => { omniauth_callbacks: 'omniauth_callbacks', registrations: 'registrations'}
              

@@ -7,12 +7,13 @@
 				<div class="col-md-2">
 		  			<%= image_tag(@timeline.img, size: "180") %>
 				</div>
-				<div class="col-md-8">
+				<div class="col-md-7">
 					<h1><%= @timeline.title %></h1>
 					<h4><%= @timeline.descr %></h4>
 				</div>
-				<div class="col-md-2">
-					<%= link_to 'Edit', edit_timeline_path(@timeline), class: 'btn btn-default pull-right' %>
+				<div class="col-md-3">
+					<%= link_to 'Edit', edit_timeline_path(@timeline), class: 'btn btn-default pull-right' %><br>
+					<%= render partial: "timelines/filter" %>
 				</div>		
 			</div>
 		</div>

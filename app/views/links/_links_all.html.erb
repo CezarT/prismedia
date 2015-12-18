@@ -1,4 +1,4 @@
-<% @timeline.links.each do |lnk| %>
+<% @links.each do |lnk| %>
 	<div class="row" id="link-<%= lnk.id %>">
 		<%= render partial: 'links/link_one', locals: {lnk: lnk}  %>
 	</div>

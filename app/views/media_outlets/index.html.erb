@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Media Outlets</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Url</th>
+      <th>Type</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @media_outlets.each do |media_outlet| %>
+      <tr>
+        <td><%= media_outlet.title %></td>
+        <td><%= media_outlet.url %></td>
+        <td><%= media_outlet.type %></td>
+        <td><%= link_to 'Show', media_outlet %></td>
+        <td><%= link_to 'Edit', edit_media_outlet_path(media_outlet) %></td>
+        <td><%= link_to 'Destroy', media_outlet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Media outlet', new_media_outlet_path %>
