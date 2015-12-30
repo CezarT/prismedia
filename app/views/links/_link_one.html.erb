@@ -1,36 +1,43 @@
 <div class="col-md-1">
-	M=<%= lnk.media_outlet_id%>
+	 <%= link.media_outlet.title %>
 </div>
+
 <div class="col-md-2">
-	<%= lnk.date_published %>
+	<%= link.date_published.to_formatted_s(:short) %>
 </div>
+
 <div class="col-md-6">
-	<%= link_to lnk.title, lnk.lnk %>
+	<%= link_to link.title, link.lnk %>
 </div>
+
 <div class="col-md-1">
-	<%= lnk.total_shares.to_i %>
-	<% if (current_user.voted_for? lnk) %>
-		<%= link_to unvote_link_path(lnk), remote: true, method: :put do %>
-		<button type="button" class="btn btn-sm btn-default">
-		  <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
-		  <span><%= lnk.rating.to_i %></span>
-		</button>
+	<%= link.total_shares.to_i %>
+	<% if user_signed_in? %>
+		<% if (current_user.voted_for? link) %>
+			<%= link_to unvote_link_path(link), remote: true, method: :put do %>
+			<button type="button" class="btn btn-sm btn-default" style="color: #f62">
+			  <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+			  <span><%= link.total_votes.to_i %></span>
+			</button>
+			<% end %>
+		<% else %>
+			<%= link_to upvote_link_path(link), remote: true, method: :put do %>
+			<button type="button" class="btn btn-sm btn-default">
+			  <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+			  <span><%= link.total_votes.to_i %></span>
+			</button>
+			<% end %>
 		<% end %>
 	<% else %>
-		<%= link_to upvote_link_path(lnk), remote: true, method: :put do %>
-		<button type="button" class="btn btn-sm btn-default">
-		  <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
-		  <span><%= lnk.rating.to_i %></span>
-		</button>
-		<% end %>
+	  <span><%= link.total_votes.to_i %></span>
 	<% end %>
 </div>
 
 <div class="col-md-2">
-	<%= link_to({ controller: "links", action: "edit", id: lnk.id,timeline_id: @timeline.id }, remote: true)  do %>
+	<%= link_to({ controller: "links", action: "edit", id: link.id,timeline_id: @timeline.id }, remote: true)  do %>
 	    <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#link-form-modal">Edit</button>
 	<% end %>
-	<%= link_to lnk, remote: true, method: :delete,  data: { confirm: 'Are you sure?' } do %>
+	<%= link_to link, method: :delete,  data: { confirm: 'Are you sure?' } do %>
 		<button class="btn btn-default btn-sm"ton>Delete!</button>
 	<% end %>
 </div>

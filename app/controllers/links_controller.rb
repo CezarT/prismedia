@@ -17,7 +17,9 @@ class LinksController < ApplicationController
     @timeline = Timeline.find(params[:link][:timeline_id])
     @timeline.links << @link
 
-    @links = @timeline.links
+    if @timeline.save
+      redirect_to @timeline, notice: 'Link was successfully created.' 
+    end
   end
 
   def edit
@@ -28,17 +30,19 @@ class LinksController < ApplicationController
     @link.total_shares = @link.extract_shares
     @link.update_attributes(link_params)
 
-    @links = @timeline.links
+    if @timeline.save
+      redirect_to @timeline, notice: 'Link was successfully updated.' 
+    end
   end
 
   def destroy
-    @links=  @link.timeline.links
     @link.destroy
+    redirect_to @timeline
   end
 
   def upvote
     @link.upvote_by current_user
-    @link.rating = @link.get_upvotes.size
+    @link.total_votes = @link.get_upvotes.size
     @link.save
     respond_to do |format|
       format.js   { render :layout => false }
@@ -48,7 +52,7 @@ class LinksController < ApplicationController
 
   def unvote
     @link.unvote_by current_user
-    @link.rating = @link.get_upvotes.size
+    @link.total_votes = @link.get_upvotes.size
     @link.save
     respond_to do |format|
       format.js   { render :layout => false }
@@ -58,7 +62,9 @@ class LinksController < ApplicationController
 
   def sort
     @timeline = Timeline.find(params[:timeline_id])
-    @links = @timeline.links.sort(params[:ordr])
+    @links = @timeline.links.by_type(params[:filter_types]).by_date(params[:ordr])
+    puts '------------------------'
+    puts params[:filter_types]
   end
 
   private

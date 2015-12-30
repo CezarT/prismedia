@@ -6,37 +6,54 @@
 	<button id="filter_vote">Vote</button>
 	<button id="filter_share">Share</button>
 </div>
-<div>
-	<button id="filter_media">Media</button>
-	<button id="filter_blog">Blog</button>
-	<button id="filter_social">Social</button>
-</div>
+<form id="filter_by_type">
+   <label><input type="checkbox" value='1' checked> Televiziuni</label><br>
+   <label><input type="checkbox" value='2' checked> Bloguri</label><br>
+   <label><input type="checkbox" value='3' checked> Media Online</label><br>
+</form>
 
 <script>
 $(function(){ 
-	var order = "desc";
+	var date_order = "desc";
+	var type_filter = ['1','2','3'];
 
+	//set chronological order variable and show/hide buttons
 	$('#filter_old').on('click', function(){
-		order = 'asc';
+		date_order = 'asc';
 		$('#filter_old').hide();
 		$('#filter_new').show();
-		send(order);
+		send(date_order, type_filter);
 	});
 	$('#filter_new').on('click', function(){
-		order = 'desc';
+		date_order = 'desc';
 		$('#filter_new').hide();
 		$('#filter_old').show();
-		send(order);
+		send(date_order, type_filter);
+	});
+
+	//Set array with types of sources to be displayed
+  $('#filter_by_type').on('change', 'input[type=checkbox]', function(e) {
+	  if (this.checked) {
+	  	type_filter.push(this.value);
+	  } else {
+		  var index = type_filter.indexOf(this.value);  
+		  if (index > -1) {
+		    type_filter.splice(index, 1);
+			}
+		}
+		send(date_order, type_filter);
 	});
 
 	// console.log( '<%= @timeline.id %>');
 
-	function send(order) {
+	//Send filter data to controller
+	function send(date_order, filter_types) {
     $.ajax({
       type: 'GET',
       url: '/links/sort',
       dataType: 'jsonp',
-      data: { 'ordr' : order,
+      data: { 'ordr' : date_order, 
+      				'filter_types': type_filter,
     					'timeline_id': <%= @timeline.id %>}
     });
   }

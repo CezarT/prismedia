@@ -40,6 +40,8 @@ class MediaOutletsController < ApplicationController
   # PATCH/PUT /media_outlets/1
   # PATCH/PUT /media_outlets/1.json
   def update
+    puts "-------------------- Params:"
+    puts params[:media_outlet][:media_outlet_type_id].class
     respond_to do |format|
       if @media_outlet.update(media_outlet_params)
         format.html { redirect_to @media_outlet, notice: 'Media outlet was successfully updated.' }
@@ -69,6 +71,6 @@ class MediaOutletsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def media_outlet_params
-      params.require(:media_outlet).permit(:title, :url, :type)
+      params.require(:media_outlet).permit(:title, :url, :media_outlet_type_id)
     end
 end

@@ -17,7 +17,7 @@
       <tr>
         <td><%= media_outlet.title %></td>
         <td><%= media_outlet.url %></td>
-        <td><%= media_outlet.type %></td>
+        <td><%= media_outlet.media_outlet_type.name %></td>
         <td><%= link_to 'Show', media_outlet %></td>
         <td><%= link_to 'Edit', edit_media_outlet_path(media_outlet) %></td>
         <td><%= link_to 'Destroy', media_outlet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
